@@ -1,3 +1,21 @@
-Server={{ zabbix_server }}
-ServerActive={{ zabbix_server }}
-Hostname={{ inventory_hostname }}
+### PID File
+PidFile=/run/zabbix/zabbix_agent2.pid
+
+### LOG File
+LogFile=/var/log/zabbix/zabbix_agent2.log
+LogFileSize=0
+
+### Lista de servidores Zabbix que podem se conectar (passiva)
+Server={{ zabbix_servers | join(',') }}
+
+# Lista de servidores para conexões ativas
+ServerActive={{ zabbix_servers | join(',') }}
+
+### Permitir execução de system.run[*]
+AllowKey=system.run[*]
+
+### Diretório onde ficam os user parameters customizados
+Include=/etc/zabbix/zabbix_agent2.d/*.conf
+
+### USERPARAMETER
+UserParameter=check_site[*],sudo /etc/zabbix/plugins/check_site.sh $1 $2 $3
