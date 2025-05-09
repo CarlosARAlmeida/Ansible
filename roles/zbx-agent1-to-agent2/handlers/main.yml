@@ -1,0 +1,5 @@
+# roles/zabbix_agent2_install/handlers/main.yml
+- name: Restart Zabbix Agent 2
+  ansible.builtin.service:
+    name: zabbix-agent2
+    state: restarted
