@@ -25,6 +25,13 @@
     update_cache: yes
   when: ansible_os_family == "Debian"
 
+- name: Limpar cache APT quebrado (Debian/Ubuntu)
+  ansible.builtin.shell: |
+    rm -rf /var/lib/apt/lists/*
+    apt clean
+    apt update
+  when: ansible_facts['os_family'] == 'Debian'
+
 - name: Instalar Zabbix Agent 2
   ansible.builtin.package:
     name: zabbix-agent2
